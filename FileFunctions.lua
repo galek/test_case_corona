@@ -27,6 +27,13 @@ function Traverse()
 end
 
 
+function GetFileNameByIndex(index)       
+    -- assert will work if first param = false, else reverted all params,
+    -- so we will write as inverted version
+        assert(((index<table.maxn(fileList)) or index>1), "INVALID INDEX")
+        return fileList[index]
+end
+
 function LoadFile(name)
     -- Path for the file to read
     -- Nick: In test-case we will use DocumentsDirectory

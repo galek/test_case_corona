@@ -17,23 +17,14 @@ function scene:create( event )
 		defaultLabelColor = { 0, 0, 0, 0.6 },
 		catLabelColor = { 0 }
 	}
-	if ( themeID == "widget_theme_android_holo_dark" ) then
-		tableViewColors.rowColor.default = { 48/255 }
-		tableViewColors.rowColor.over = { 72/255 }
-		tableViewColors.lineColor = { 36/255 }
-		tableViewColors.catColor.default = { 80/255, 80/255, 80/255, 0.9 }
-		tableViewColors.catColor.over = { 80/255, 80/255, 80/255, 0.9 }
-		tableViewColors.defaultLabelColor = { 1, 1, 1, 0.6 }
-		tableViewColors.catLabelColor = { 1 }
-	elseif ( themeID == "widget_theme_android_holo_light" ) then
-		tableViewColors.rowColor.default = { 250/255 }
-		tableViewColors.rowColor.over = { 240/255 }
-		tableViewColors.lineColor = { 215/255 }
-		tableViewColors.catColor.default = { 220/255, 220/255, 220/255, 0.9 }
-		tableViewColors.catColor.over = { 220/255, 220/255, 220/255, 0.9 }
-		tableViewColors.defaultLabelColor = { 0, 0, 0, 0.6 }
-		tableViewColors.catLabelColor = { 0 }
-	end
+        
+	tableViewColors.rowColor.default = { 48/255 }
+	tableViewColors.rowColor.over = { 72/255 }
+	tableViewColors.lineColor = { 36/255 }
+	tableViewColors.catColor.default = { 80/255, 80/255, 80/255, 0.9 }
+	tableViewColors.catColor.over = { 80/255, 80/255, 80/255, 0.9 }
+	tableViewColors.defaultLabelColor = { 1, 1, 1, 0.6 }
+	tableViewColors.catLabelColor = { 1 }
 	
 	-- Forward reference for the tableView
 	local tableView

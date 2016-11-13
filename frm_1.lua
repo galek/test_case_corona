@@ -2,6 +2,9 @@ local widget = require( "widget" )
 local composer = require( "composer" )
 local scene = composer.newScene()
 
+
+local mFile = require( "FileFunctions" )
+
 -- Create scene
 function scene:create( event )
 	local sceneGroup = self.view
@@ -116,22 +119,42 @@ function scene:create( event )
 	sceneGroup:insert( tableView )
 
 	-- Create 75 rows
-	for i = 1,75 do
+--	for i = 1,75 do
+--		local isCategory = false
+--		local rowHeight = 32
+--		local rowColor = { 
+--			default = tableViewColors.rowColor.default,
+--			over = tableViewColors.rowColor.over,
+--		}
+		-- Make some rows categories
+--		if i == 20 or i == 40 or i == 60 then
+--			isCategory = true
+--			rowHeight = 32
+--			rowColor = {
+--				default = tableViewColors.catColor.default,
+--				over = tableViewColors.catColor.over
+--			}
+--		end
+		-- Insert the row into the tableView
+--		tableView:insertRow
+--		{
+--			isCategory = isCategory,
+--			rowHeight = rowHeight,
+--			rowColor = rowColor,
+--			lineColor = tableViewColors.lineColor,
+--			params = { defaultLabelColor=tableViewColors.defaultLabelColor, catLabelColor=tableViewColors.catLabelColor }
+--		}
+--	end
+        
+        
+	for i = 0,filesCount do
 		local isCategory = false
 		local rowHeight = 32
 		local rowColor = { 
 			default = tableViewColors.rowColor.default,
 			over = tableViewColors.rowColor.over,
 		}
-		-- Make some rows categories
-		if i == 20 or i == 40 or i == 60 then
-			isCategory = true
-			rowHeight = 32
-			rowColor = {
-				default = tableViewColors.catColor.default,
-				over = tableViewColors.catColor.over
-			}
-		end
+		
 		-- Insert the row into the tableView
 		tableView:insertRow
 		{
@@ -145,5 +168,9 @@ function scene:create( event )
 end
 
 scene:addEventListener( "create" )
+
+--
+LoadFile("ReadMe.txt")
+SaveFile("test.txt","test me")
 
 return scene

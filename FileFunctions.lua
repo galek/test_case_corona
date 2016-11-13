@@ -17,9 +17,12 @@ function Traverse()
     local doc_path = system.pathForFile( "", system.DocumentsDirectory )
 
     for file in lfs.dir( doc_path ) do
+        -- We will use only files
+        if (file ~= "..") and (file ~= "." )then
         -- "file" is the current file or directory name
         print("found file, "..file)
         AddFile(file)
+        end
     end
 end
 

@@ -68,7 +68,7 @@ function scene:create( event )
 
 		local groupContentHeight = row.contentHeight
 		
-		local rowTitle = display.newText( row, "Row " .. row.index, 0, 0, nil, 14 )
+		local rowTitle = display.newText( row, fileList[row.index], 0, 0, nil, 14 )
 		rowTitle.x = 10
 		rowTitle.anchorX = 0
 		rowTitle.y = groupContentHeight * 0.5

@@ -9,9 +9,7 @@ local mFile = require( "FileFunctions" )
 function scene:create( event )
 	local sceneGroup = self.view
 	local ox, oy = math.abs(display.screenOriginX), math.abs(display.screenOriginY)
-	local tabBarHeight = composer.getVariable( "tabBarHeight" )
-	local themeID = composer.getVariable( "themeID" )
-
+	
 	-- Set color variables depending on theme
 	local tableViewColors = {
 		rowColor = { default = { 1 }, over = { 30/255, 144/255, 1 } },
@@ -107,9 +105,7 @@ function scene:create( event )
 		top = 32-oy,
 		left = -ox,
 		width = display.contentWidth+ox+ox, 
-		height = display.contentHeight--
----tabBarHeight      //NICK
-+oy+oy-32,
+		height = display.contentHeight+oy+oy-32,
 		hideBackground = true,
 		listener = tableViewListener,
 		onRowRender = onRowRender,
@@ -118,36 +114,7 @@ function scene:create( event )
 	}
 	sceneGroup:insert( tableView )
 
-	-- Create 75 rows
---	for i = 1,75 do
---		local isCategory = false
---		local rowHeight = 32
---		local rowColor = { 
---			default = tableViewColors.rowColor.default,
---			over = tableViewColors.rowColor.over,
---		}
-		-- Make some rows categories
---		if i == 20 or i == 40 or i == 60 then
---			isCategory = true
---			rowHeight = 32
---			rowColor = {
---				default = tableViewColors.catColor.default,
---				over = tableViewColors.catColor.over
---			}
---		end
-		-- Insert the row into the tableView
---		tableView:insertRow
---		{
---			isCategory = isCategory,
---			rowHeight = rowHeight,
---			rowColor = rowColor,
---			lineColor = tableViewColors.lineColor,
---			params = { defaultLabelColor=tableViewColors.defaultLabelColor, catLabelColor=tableViewColors.catLabelColor }
---		}
---	end
-        
-        
-	for i = 0,filesCount do
+	for i = 1,GetFileListSize() do
 		local isCategory = false
 		local rowHeight = 32
 		local rowColor = { 
@@ -170,6 +137,7 @@ end
 scene:addEventListener( "create" )
 
 --
+Traverse()
 LoadFile("ReadMe.txt")
 SaveFile("test.txt","test me")
 

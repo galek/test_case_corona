@@ -1,10 +1,26 @@
 --=============FILES=============
--- Это плохо
-filesCount = -1
+local lfs = require( "lfs" )
 
-function AddFile(name)
-    
-    filesCount=filesCount+1
+-- List of files
+fileList = {};
+
+function AddFile(file)
+        table.insert(fileList, file)
+end
+
+function GetFileListSize()
+    return table.maxn(fileList)
+end
+
+function Traverse()
+    -- Get raw path to the app documents directory
+    local doc_path = system.pathForFile( "", system.DocumentsDirectory )
+
+    for file in lfs.dir( doc_path ) do
+        -- "file" is the current file or directory name
+        print("found file, "..file)
+        AddFile(file)
+    end
 end
 
 
@@ -51,6 +67,12 @@ else
 end
 
 file = nil
+end
+
+
+function MakeListOfFiles()
+    
+    AddFile()
 end
 --=============FILES=============
 

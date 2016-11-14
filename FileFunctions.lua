@@ -1,6 +1,8 @@
 --=============FILES=============
 local lfs = require( "lfs" )
 
+--opened file
+local openedFile
 -- List of files
 fileList = {};
 
@@ -50,6 +52,7 @@ function LoadFile(name)
         local contents = file:read( "*a" )
         -- Output the file contents
         print( "Contents of " .. path .. "\n" .. contents )
+        openedFile=path
     -- Close the file handle
     io.close( file )
 end
@@ -77,5 +80,9 @@ else
 end
 
 file = nil
+end
+
+function GetOpenedFile()
+    return openedFile
 end
 --=============FILES=============

@@ -93,12 +93,22 @@ end
 local function goBack(event)
     -- transition.to( tableView, { x=display.contentWidth*0.5, time=600, transition=easing.outQuint } )
     -- transition.to( itemSelected, { x=display.contentWidth+itemSelected.contentWidth, time=600, transition=easing.outQuint } )
-    transition.to(event.target, { x = display.contentWidth + event.target.contentWidth, time = 480, transition = easing.outQuint })
+   -- transition.to(event.target, { x = display.contentWidth + event.target.contentWidth, time = 480, transition = easing.outQuint })
+   
+   
+    local switch = event.target
+    print( "Switch with ID '"..switch.id.."' is on: "..tostring(switch.isOn) )
+   
 end
 
-local function onSave()
-    print("onSave")
-    SaveFile("test1.txt",mEditBox.text)
+local function onSave(event)
+    --print("onSave")
+    --print( event.target.id )  -- Reference to button's 'id' parameter
+    
+    local filename=GetOpenedFile()
+    
+    assert((not((filename==nil)or filename=="")),"INVALID FILENAME")    
+    SaveFile(filename,mEditBox.text)    
 end
 
 -- table to setup tabBar buttons
@@ -109,17 +119,20 @@ local tabButtons =
         height = 32,
         defaultFile = "icon1.png",
         overFile = "icon1-down.png",
-        label = "First",
-        selected = true,
-        onPress = goBack
+        label = "Back",
+        onPress = goBack,
+        onRelease = goBack,
+        onEvent  = goBack
     },
     {
         width = 32,
         height = 32,
         defaultFile = "icon2.png",
         overFile = "icon2-down.png",
-        label = "Second",
-        onPress = onSave
+        label = "Save",
+        onPress = onSave,
+        onRelease = onSave,
+        onEvent  = onSave
     },
 }
 

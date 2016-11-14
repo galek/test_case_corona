@@ -5,6 +5,9 @@ local scene = composer.newScene()
 
 local mFile = require("FileFunctions")
 
+
+local mEditBox
+
 -- Create scene
 function scene:create(event)
     local sceneGroup = self.view
@@ -57,8 +60,6 @@ function scene:create(event)
 
 
 
-    local defaultBox
-
     local function textListener(event)
 
         if (event.phase == "began") then
@@ -81,11 +82,11 @@ function scene:create(event)
     local width = display.contentWidth + ox + ox
     local height = display.contentHeight + oy + oy - 32
 
-    defaultBox = native.newTextBox(display.contentCenterX, display.contentCenterY, width - 32, height - 100)
-    defaultBox.text = "This is line 1.\nAnd this is line2"
-    defaultBox.isEditable = true
-    defaultBox.font = native.newFont("Helvetica-Bold", 18)
-    defaultBox:addEventListener("userInput", textListener)
+    mEditBox = native.newTextBox(display.contentCenterX, display.contentCenterY, width - 32, height - 100)
+    mEditBox.text = "This is line 1.\nAnd this is line2"
+    mEditBox.isEditable = true
+    mEditBox.font = native.newFont("Helvetica-Bold", 18)
+    mEditBox:addEventListener("userInput", textListener)
 
 end
 
@@ -95,8 +96,9 @@ local function goBack(event)
     transition.to(event.target, { x = display.contentWidth + event.target.contentWidth, time = 480, transition = easing.outQuint })
 end
 
-function onSave()
-
+local function onSave()
+    print("onSave")
+    SaveFile("test1.txt",mEditBox.text)
 end
 
 -- table to setup tabBar buttons
@@ -109,7 +111,7 @@ local tabButtons =
         overFile = "icon1-down.png",
         label = "First",
         selected = true,
-        onRelease = goBack
+        onPress = goBack
     },
     {
         width = 32,
@@ -117,7 +119,7 @@ local tabButtons =
         defaultFile = "icon2.png",
         overFile = "icon2-down.png",
         label = "Second",
-        onRelease = onSave
+        onPress = onSave
     },
 }
 

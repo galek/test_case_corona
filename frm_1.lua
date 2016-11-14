@@ -34,33 +34,11 @@ function scene:create(event)
 
     -- Forward reference for the tableView
     local tableView
-
-    -- TODO:DELME
-    -- Text to show which item we selected
-    local itemSelected = display.newText("User selected row ", 0, 0, native.systemFont, 16)
-    itemSelected:setFillColor(unpack(tableViewColors.catLabelColor))
-    itemSelected.x = display.contentWidth + itemSelected.contentWidth
-    itemSelected.y = display.contentCenterY
-    sceneGroup:insert(itemSelected)
-
     -- Function to return to the tableView
     local function goBack(event)
         transition.to(tableView, { x = display.contentWidth * 0.5, time = 600, transition = easing.outQuint })
-        transition.to(itemSelected, { x = display.contentWidth + itemSelected.contentWidth, time = 600, transition = easing.outQuint })
         transition.to(event.target, { x = display.contentWidth + event.target.contentWidth, time = 480, transition = easing.outQuint })
     end
-
-    -- Back button
-    local backButton = widget.newButton {
-        width = 128,
-        height = 32,
-        label = "back",
-        onRelease = goBack
-    }
-    backButton.x = display.contentWidth + backButton.contentWidth
-    backButton.y = itemSelected.y + itemSelected.contentHeight + 16
-    sceneGroup:insert(backButton)
-
     -- Listen for tableView events
     local function tableViewListener(event)
         local phase = event.phase

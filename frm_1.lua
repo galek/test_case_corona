@@ -87,11 +87,9 @@ function scene:create(event)
     local function onRowTouch(event)
         local phase = event.phase
         local row = event.target
-        if ("release" == phase) then
-            itemSelected.text = "User selected row " .. row.index
-            transition.to(tableView, { x = ((display.contentWidth / 2) + ox + ox) * -1, time = 600, transition = easing.outQuint })
-            transition.to(itemSelected, { x = display.contentCenterX, time = 600, transition = easing.outQuint })
-            transition.to(backButton, { x = display.contentCenterX, time = 750, transition = easing.outQuint })
+        if ("release" == phase) then    
+            composer.setVariable( "SelectedFile", GetFileNameByIndex(row.index) ) 
+            composer.gotoScene("frm_2")       
         end
     end
 
@@ -134,7 +132,5 @@ scene:addEventListener("create")
 
 --
 Traverse()
-LoadFile("ReadMe.txt")
-SaveFile("test.txt", "test me")
 
 return scene

@@ -1,13 +1,14 @@
---=============FILES=============
-local lfs = require( "lfs" )
+-- =============FILES=============
+local lfs = require("lfs")
 
---opened file
+-- opened file
 local openedFile
+local contents
 -- List of files
-fileList = {};
+fileList = { };
 
 function AddFile(file)
-        table.insert(fileList, file)
+    table.insert(fileList, file)
 end
 
 function GetFileListSize()
@@ -16,73 +17,80 @@ end
 
 function Traverse()
     -- Get raw path to the app documents directory
-    local doc_path = system.pathForFile( "", system.DocumentsDirectory )
+    local doc_path = system.pathForFile("", system.DocumentsDirectory)
 
-    for file in lfs.dir( doc_path ) do
+    for file in lfs.dir(doc_path) do
         -- We will use only files
-        if (file ~= "..") and (file ~= "." )then
-        -- "file" is the current file or directory name
-        print("found file, "..file)
-        AddFile(file)
+        if (file ~= "..") and(file ~= ".") then
+            -- "file" is the current file or directory name
+            print("found file, " .. file)
+            AddFile(file)
         end
     end
 end
 
 
-function GetFileNameByIndex(index)       
+function GetFileNameByIndex(index)
     -- assert will work if first param = false, else reverted all params,
     -- so we will write as inverted version
-        assert(((index<table.maxn(fileList)) or index>1), "INVALID INDEX")
-        return fileList[index]
+    assert(((index < table.maxn(fileList)) or index > 1), "INVALID INDEX")
+    return fileList[index]
 end
 
 function LoadFile(name)
     -- Path for the file to read
     -- Nick: In test-case we will use DocumentsDirectory
-    local path = system.pathForFile( name, system.DocumentsDirectory )
+    local path = system.pathForFile(name, system.DocumentsDirectory)
 
     -- Open the file handle
-    local file, errorString = io.open( path, "r" )
+    local file, errorString = io.open(path, "r")
 
     if not file then
         -- Error occurred; output the cause
-       print( "File error: " .. errorString )
+        print("File error: " .. errorString)
     else
         -- Read data from file
-        local contents = file:read( "*a" )
+        local contents = file:read("*a")
         -- Output the file contents
-        print( "Contents of " .. path .. "\n" .. contents )
-        openedFile=path
-    -- Close the file handle
-    io.close( file )
+        print("Contents of " .. path .. "\n" .. contents)
+        openedFile = path
+        -- Close the file handle
+        io.close(file)
+        file = nil
+        return contents
+    end
+
+    file = nil
+    return nil
 end
 
-file = nil
-end
 
+function SaveFile(name, saveData)
 
-function SaveFile(name,saveData)
+    -- Path for the file to write
+    local path = system.pathForFile(name, system.DocumentsDirectory)
 
--- Path for the file to write
-local path = system.pathForFile( name, system.DocumentsDirectory )
+    -- Open the file handle
+    local file, errorString = io.open(path, "w")
 
--- Open the file handle
-local file, errorString = io.open( path, "w" )
+    if not file then
+        -- Error occurred; output the cause
+        print("File error: " .. errorString)
+    else
+        -- Write data to file
+        file:write(saveData)
+        -- Close the file handle
+        io.close(file)
+    end
 
-if not file then
-    -- Error occurred; output the cause
-    print( "File error: " .. errorString )
-else
-    -- Write data to file
-    file:write( saveData )
-    -- Close the file handle
-    io.close( file )
-end
-
-file = nil
+    file = nil
 end
 
 function GetOpenedFile()
     return openedFile
 end
---=============FILES=============
+
+function GetContent()
+    return contents
+end
+-- =============FILES=============

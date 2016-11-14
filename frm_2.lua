@@ -8,6 +8,11 @@ local mFile = require("FileFunctions")
 local mEditBox
 
 
+local function Init()
+    local _SelectedFile = composer.getVariable("SelectedFile")
+    mEditBox.text = LoadFile(_SelectedFile)
+end
+
 local function destroyEditBox()
     if mEditBox then
         mEditBox:removeSelf()
@@ -98,6 +103,8 @@ function scene:create(event)
     }
     )
     sceneGroup:insert(Back)
+
+    Init()
 end
 
 function scene:destroyScene(event)
@@ -115,5 +122,6 @@ end
 scene:addEventListener("destroyScene", scene)
 scene:addEventListener("exitScene", scene)
 scene:addEventListener("create", scene)
+
 
 return scene

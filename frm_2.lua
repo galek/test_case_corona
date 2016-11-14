@@ -111,44 +111,32 @@ local function onSave(event)
     SaveFile(filename,mEditBox.text)    
 end
 
--- table to setup tabBar buttons
-local tabButtons =
-{
-    {
-        width = 32,
-        height = 32,
-        defaultFile = "icon1.png",
-        overFile = "icon1-down.png",
-        label = "Back",
-        onPress = goBack,
-        onRelease = goBack,
-        onEvent  = goBack
-    },
-    {
-        width = 32,
-        height = 32,
-        defaultFile = "icon2.png",
-        overFile = "icon2-down.png",
-        label = "Save",
-        onPress = onSave,
-        onRelease = onSave,
-        onEvent  = onSave
-    },
-}
-
 -- create the actual tabBar widget
-local tabBar = widget.newTabBar
-{
-    top = display.contentHeight - 50,
-    width = display.contentWidth,
-    backgroundFile = "tabbar.png",
-    tabSelectedLeftFile = "tabBar_tabSelectedLeft.png",
-    tabSelectedMiddleFile = "tabBar_tabSelectedMiddle.png",
-    tabSelectedRightFile = "tabBar_tabSelectedRight.png",
-    tabSelectedFrameWidth = 20,
-    tabSelectedFrameHeight = 52,
-    buttons = tabButtons
-}
+
+local ox, oy = math.abs(display.screenOriginX), math.abs(display.screenOriginY)
+    
+local Save = widget.newButton(
+    {
+        top = display.contentHeight - 50,
+        width = 32,
+        height = 32,
+        left = 300 + ox + ox, -- HARDCODED SIZE
+        id = "button1",
+        label = "Save",
+        onEvent = onSave
+    }
+)  
+local Back = widget.newButton(
+    {
+        top = display.contentHeight - 50,
+        width = 32,
+        height = 32,
+        left = 20 + ox + ox, -- HARDCODED SIZE
+        id = "button2",
+        label = "Back",
+        onEvent = goBack
+    }
+)
 
 scene:addEventListener("create")
 

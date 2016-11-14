@@ -1,2 +1,1 @@
 Finish auth window and downloading files from dropbox
-in scene2 - needly change header(title) 

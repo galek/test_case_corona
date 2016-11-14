@@ -1,14 +1,19 @@
 local widget = require("widget")
 local composer = require("composer")
 local scene = composer.newScene()
+local shared = require("shared")
 
 
 local mFile = require("FileFunctions")
+-- USED FOR LOCALISATION
+local LOC_LoadedFilesTitle = "Loaded Files"
 
 -- Create scene
 function scene:create(event)
     local sceneGroup = self.view
+
     local ox, oy = math.abs(display.screenOriginX), math.abs(display.screenOriginY)
+    InitHeader(LOC_LoadedFilesTitle, sceneGroup, ox, oy)
 
     -- Set color variables depending on theme
     local tableViewColors = {

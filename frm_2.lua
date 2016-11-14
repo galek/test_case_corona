@@ -7,8 +7,10 @@ local mFile = require("FileFunctions")
 
 local mEditBox
 
+local LOC_EditFile = "Edit File"
 
-local function Init()
+
+local function _InitFile()
     local _SelectedFile = composer.getVariable("SelectedFile")
     mEditBox.text = LoadFile(_SelectedFile)
 end
@@ -48,6 +50,10 @@ end
 -- Create scene
 function scene:create(event)
     local sceneGroup = self.view
+
+    local ox, oy = math.abs(display.screenOriginX), math.abs(display.screenOriginY)
+    InitHeader(LOC_EditFile, sceneGroup, ox, oy)
+
     local function textListener(event)
 
         if (event.phase == "began") then
@@ -106,7 +112,7 @@ function scene:create(event)
     )
     sceneGroup:insert(Back)
 
-    Init()
+    _InitFile()
 end
 
 function scene:destroyScene(event)

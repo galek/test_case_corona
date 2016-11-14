@@ -78,11 +78,4 @@ end
 
 file = nil
 end
-
-
-function MakeListOfFiles()
-    
-    AddFile()
-end
 --=============FILES=============
-

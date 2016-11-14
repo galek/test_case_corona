@@ -72,12 +72,8 @@ function scene:create( event )
 		rowTitle.x = 10
 		rowTitle.anchorX = 0
 		rowTitle.y = groupContentHeight * 0.5
-		if ( row.isCategory ) then
-			rowTitle:setFillColor( unpack(row.params.catLabelColor) )
-			rowTitle.text = rowTitle.text.." (category)"
-		else
-			rowTitle:setFillColor( unpack(row.params.defaultLabelColor) )
-		end
+		
+		rowTitle:setFillColor( unpack(row.params.defaultLabelColor) )
 	end
 	
 	-- Handle row updates

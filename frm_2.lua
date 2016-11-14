@@ -77,7 +77,11 @@ local function textListener( event )
 end
 
 -- Create text box
-defaultBox = native.newTextBox( 200, 200, 280, 140 )
+	local ox, oy = math.abs(display.screenOriginX), math.abs(display.screenOriginY)
+        local width = display.contentWidth+ox+ox
+	local height = display.contentHeight+oy+oy-32
+                
+defaultBox = native.newTextBox( display.contentCenterX,display.contentCenterY,width-32,height-100 )
 defaultBox.text = "This is line 1.\nAnd this is line2"
 defaultBox.isEditable = true
 defaultBox.font = native.newFont( "Helvetica-Bold", 18 )
@@ -85,6 +89,15 @@ defaultBox:addEventListener( "userInput", textListener )
 
 end
 
+local function goBack( event )
+		--transition.to( tableView, { x=display.contentWidth*0.5, time=600, transition=easing.outQuint } )
+		--transition.to( itemSelected, { x=display.contentWidth+itemSelected.contentWidth, time=600, transition=easing.outQuint } )
+		transition.to( event.target, { x=display.contentWidth+event.target.contentWidth, time=480, transition=easing.outQuint } )
+	end
+
+function onSave()
+    
+end
 
 -- table to setup tabBar buttons
 local tabButtons = 
@@ -96,6 +109,7 @@ local tabButtons =
 		overFile = "icon1-down.png",
 		label = "First",
 		selected = true,
+		onRelease = goBack
 	},
 	{ 
 		width = 32,
@@ -103,6 +117,7 @@ local tabButtons =
 		defaultFile = "icon2.png",
 		overFile = "icon2-down.png",
 		label = "Second",
+		onRelease = onSave
 	},
 }
 
@@ -121,10 +136,5 @@ local tabBar = widget.newTabBar
 }
 
 scene:addEventListener( "create" )
-
---
-Traverse()
-LoadFile("ReadMe.txt")
-SaveFile("test.txt","test me")
 
 return scene

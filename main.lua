@@ -36,7 +36,7 @@ local function showWidgets( widgetThemeNum )
 	local titleText = display.newText( LOC_LoadedFilesTitle, halfW, titleBar.y, native.systemFont, 14 )
         
 	-- Start at tab1
-	composer.gotoScene( "frm_1" )
+	composer.gotoScene( "frm_2" )
 end
 
 showWidgets( themeID )

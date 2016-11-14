@@ -162,26 +162,46 @@ function M.listingOfDirectory(filename, cb)
 end
 
 function M.downloadFile(filename, cb)
-    
-    listingOfDirectory(filename,cb)-- TEEEST ONLY
-    
-    if nil == M.accessToken then
-        return
-    end
+	if nil == M.accessToken then
+		return
+	end
 
-    callback = cb
+	callback = cb
 
-    local url = "https://content.dropboxapi.com/2/files/download"
+    local	url = "https://content.dropboxapi.com/2/files/download"
 
-    local params = { }
-    local headers = { }
+	local	params = {headers={}}
+				
+	params.headers["Authorization"] = "Bearer "..M.accessToken
+	params.headers["Dropbox-API-Arg"] = "{\"path\": \"/"..filename.."\"}"
 
-    headers["Authorization"] = "Bearer " .. M.accessToken
-    --headers["Dropbox-API-Arg"] = "{\"path\": \"/" .. filename .. "\", \"mode\": \"overwrite\"}"
-    headers["Content-Type"] = nil    --"text/plain; charset=dropbox-cors-hack"
-    params.headers = headers
+	network.download(
+		url,
+		"POST",
+		function(event)
+			print(dumpdata:dump(event, true))
+			if event.isError then
+				print("network error:", event.status, event.response)
 
-,
+				if nil ~= callback then
+					callback(M.err_network)
+				end
+			else
+				print("dropbox response:", event.status, dumpdata:dump(event.response, true))
+
+				if nil ~= callback then
+					if 200 == event.status then
+						callback(M.err_none)
+					elseif 401 == event.status then
+						callback(M.err_atexpired)
+					else
+						callback(M.err_downloadfile)
+					end
+				end
+			end
+		end,
+		params,
+		filename)
 end
 
 function M.uploadFile(filename, dir, cb)

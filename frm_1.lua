@@ -30,6 +30,7 @@ function scene:create(event)
     -- Forward reference for the tableView
     local tableView
 
+    -- TODO:DELME
     -- Text to show which item we selected
     local itemSelected = display.newText("User selected row ", 0, 0, native.systemFont, 16)
     itemSelected:setFillColor(unpack(tableViewColors.catLabelColor))
@@ -87,9 +88,9 @@ function scene:create(event)
     local function onRowTouch(event)
         local phase = event.phase
         local row = event.target
-        if ("release" == phase) then    
-            composer.setVariable( "SelectedFile", GetFileNameByIndex(row.index) ) 
-            composer.gotoScene("frm_2")       
+        if ("release" == phase) then
+            composer.setVariable("SelectedFile", GetFileNameByIndex(row.index))
+            composer.gotoScene("frm_2")
         end
     end
 

@@ -68,7 +68,10 @@ end
 function SaveFile(name, saveData)
 
     -- Path for the file to write
-    local path = system.pathForFile(name, system.DocumentsDirectory)
+    local path = name
+
+    -- not needly, we already have fully path
+    -- system.pathForFile(name, system.DocumentsDirectory)
 
     -- Open the file handle
     local file, errorString = io.open(path, "w")

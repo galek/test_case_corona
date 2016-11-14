@@ -38,6 +38,8 @@ local function onSave(event)
     local filename = GetOpenedFile()
 
     assert((not((filename == nil) or filename == "")), "INVALID FILENAME")
+
+    print("onSave " .. filename)
     SaveFile(filename, mEditBox.text)
 
     return true

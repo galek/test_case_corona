@@ -34,11 +34,6 @@ function scene:create(event)
 
     -- Forward reference for the tableView
     local tableView
-    -- Function to return to the tableView
-    local function goBack(event)
-        transition.to(tableView, { x = display.contentWidth * 0.5, time = 600, transition = easing.outQuint })
-        transition.to(event.target, { x = display.contentWidth + event.target.contentWidth, time = 480, transition = easing.outQuint })
-    end
     -- Listen for tableView events
     local function tableViewListener(event)
         local phase = event.phase
